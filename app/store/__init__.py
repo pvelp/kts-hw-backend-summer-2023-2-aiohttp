@@ -9,7 +9,8 @@ if typing.TYPE_CHECKING:
 class Store:
     def __init__(self, app: "Application"):
         from app.store.quiz.accessor import QuizAccessor
-
+        from app.store.admin.accessor import AdminAccessor
+        self.admins = AdminAccessor(app)
         self.quizzes = QuizAccessor(app)
 
 
