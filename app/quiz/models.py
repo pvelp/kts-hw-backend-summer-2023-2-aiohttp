@@ -10,9 +10,13 @@ class Theme:
 
 @dataclass
 class Question:
-    pass
+    id: int
+    title: str
+    theme_id: str
+    answers: list["Answer"]
 
 
 @dataclass
 class Answer:
-    pass
+    title: str
+    is_correct: bool

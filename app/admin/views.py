@@ -1,13 +1,17 @@
 from aiohttp.web_exceptions import HTTPForbidden, HTTPBadRequest, HTTPNotFound, HTTPUnauthorized
+from aiohttp_apispec import docs, request_schema, response_schema
 from aiohttp_session import new_session, get_session
 
-from app.admin.schemes import AdminResponseSchema
+from app.admin.schemes import AdminResponseSchema, AdminRequestSchema
 from app.web.app import View
 from app.web.mixins import AuthRequiredMixin
 from app.web.utils import json_response
 
 
 class AdminLoginView(View):
+    @docs(tags=["admin"], summary='Login for admin')
+    @request_schema(AdminRequestSchema)
+    @response_schema(AdminResponseSchema, 200)
     async def post(self):
         data = await self.request.json()
         try:
@@ -26,13 +30,10 @@ class AdminLoginView(View):
 
 
 class AdminCurrentView(AuthRequiredMixin, View):
+    @docs(tags=["admin"], summary='Check current user')
+    @response_schema(AdminResponseSchema, 200)
     async def get(self):
-        # try:
-        #     self.request.admin
-        # except Exception:
-        #     raise HTTPUnauthorized
-
         if self.request.admin.email == self.request.app.config.admin.email:
             return json_response(data=AdminResponseSchema().dump(self.request.admin))
-        # else:
-        #     raise HTTPUnauthorized
+        else:
+            raise HTTPUnauthorized
