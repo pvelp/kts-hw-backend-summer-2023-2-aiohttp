@@ -12,7 +12,7 @@ class Theme:
 class Question:
     id: int
     title: str
-    theme_id: str
+    theme_id: int
     answers: list["Answer"]
 
 
