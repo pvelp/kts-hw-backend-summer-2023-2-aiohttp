@@ -15,3 +15,8 @@ class Admin:
 
     def is_password_correct(self, password: str) -> bool:
         return self.hash_password(password) == self.password
+
+    @classmethod
+    def admin_from_session(cls, session: Optional[dict]) -> Optional["Admin"]:
+        return cls(id=session["admin"]["id"], email=session["admin"]["email"])
+

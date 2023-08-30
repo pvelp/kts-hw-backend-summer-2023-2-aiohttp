@@ -25,7 +25,7 @@ class AdminAccessor(BaseAccessor):
             admin = Admin(
                 id=self.app.database.next_admin_id,
                 email=email,
-                password=Admin.hash_password(password)
+                password=str(password)
             )
             self.app.database.admins.append(admin)
             return admin
