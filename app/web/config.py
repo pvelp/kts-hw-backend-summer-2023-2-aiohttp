@@ -39,7 +39,7 @@ def setup_config(app: "Application", config_path: str):
     app.config = Config(
         admin=AdminConfig(
             email=raw_config["admin"]["email"],
-            password=Admin.hash_password(raw_config["admin"]["password"]),
+            password=raw_config["admin"]["password"],
         ),
         session=SessionConfig(
             key=raw_config["session"]["key"]

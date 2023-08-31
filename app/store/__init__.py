@@ -17,3 +17,5 @@ class Store:
 def setup_store(app: "Application"):
     app.database = Database()
     app.store = Store(app)
+    app.on_startup.append(app.store.admins.connect)
+    app.on_startup.append(app.store.admins.disconnect)

@@ -12,7 +12,10 @@ class AdminAccessor(BaseAccessor):
     async def connect(self, app: "Application"):
         await super().connect(app)
         await self.create_admin(email=self.app.config.admin.email, password=self.app.config.admin.password)
-        print("Connect admin database")
+
+    async def disconnect(self, app: "Application"):
+        await super().disconnect(app)
+        self.app.config.admin = []
 
     async def get_by_email(self, email: str) -> Optional[Admin]:
         for admin in self.app.database.admins:
@@ -25,7 +28,7 @@ class AdminAccessor(BaseAccessor):
             admin = Admin(
                 id=self.app.database.next_admin_id,
                 email=email,
-                password=str(password)
+                password=Admin.hash_password(password)
             )
             self.app.database.admins.append(admin)
             return admin

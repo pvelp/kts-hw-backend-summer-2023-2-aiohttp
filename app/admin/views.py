@@ -1,6 +1,6 @@
-from aiohttp.web_exceptions import HTTPForbidden, HTTPBadRequest, HTTPNotFound, HTTPUnauthorized
+from aiohttp.web_exceptions import HTTPForbidden, HTTPBadRequest
 from aiohttp_apispec import docs, request_schema, response_schema
-from aiohttp_session import new_session, get_session
+from aiohttp_session import new_session
 
 from app.admin.schemes import AdminResponseSchema, AdminRequestSchema
 from app.web.app import View
@@ -33,7 +33,4 @@ class AdminCurrentView(AuthRequiredMixin, View):
     @docs(tags=["admin"], summary='Check current user')
     @response_schema(AdminResponseSchema, 200)
     async def get(self):
-        if self.request.admin.email == self.request.app.config.admin.email:
-            return json_response(data=AdminResponseSchema().dump(self.request.admin))
-        else:
-            raise HTTPUnauthorized
+        return json_response(data=AdminResponseSchema().dump(self.request.admin))
