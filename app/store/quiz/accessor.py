@@ -59,4 +59,3 @@ class QuizAccessor(BaseAccessor):
             if question.theme_id == theme_id:
                 questions.append(question)
         return questions
-

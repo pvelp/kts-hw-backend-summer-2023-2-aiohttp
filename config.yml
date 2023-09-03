@@ -1,4 +1,4 @@
-user_token: вставьте_ваш_токен_вместо_этой_строки
+user_token: YTkyMmNiNTktN2ZjNS00ZTRmLWI2MTMtOGRhOGNiMTU4ODVkXzU1OTA=
 
 session:
   key: key_to_generate
@@ -6,7 +6,7 @@ admin:
   email: admin@admin.com
   password: admin
 bot:
-  token: group_token
-  group_id: 1
+  token: access_token
+  group_id: 222306604
 
 
